@@ -1,7 +1,7 @@
-import {assert} from 'chai';
-import TickStub from '../TickStub';
-import Wait from '../../src/actions/Wait';
-import {RUNNING, SUCCESS} from '../../src/constants';
+const {assert} = require('chai');
+const TickStub = require('../TickStub');
+const Wait = require('../../src/actions/Wait');
+const {RUNNING, SUCCESS} = require('../../src/constants');
 
 suite('Action: Wait', function() {
     test('Name', function() {

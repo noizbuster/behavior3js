@@ -1,7 +1,7 @@
-import {stub, spy} from 'sinon';
-import {assert} from 'chai';
-import Sequence from '../../src/composites/Sequence';
-import {FAILURE, SUCCESS, RUNNING} from '../../src/constants';
+const {stub, spy} = require('sinon');
+const {assert} = require('chai');
+const Sequence = require('../../src/composites/Sequence');
+const {FAILURE, SUCCESS, RUNNING} = require('../../src/constants');
 
 suite('Composite: Sequence', function() {
     var getNode = function(status) {

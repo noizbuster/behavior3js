@@ -1,8 +1,8 @@
-import {stub} from 'sinon';
-import {assert} from 'chai';
-import TickStub from '../TickStub';
-import MemSequence from '../../src/composites/MemSequence';
-import {RUNNING, SUCCESS, FAILURE} from '../../src/constants';
+const {stub} = require('sinon');
+const {assert} = require('chai');
+const TickStub = require('../TickStub');
+const MemSequence = require('../../src/composites/MemSequence');
+const {RUNNING, SUCCESS, FAILURE} = require('../../src/constants');
 
 suite('Composite: MemSequence', function() {
     var getNode = function() {

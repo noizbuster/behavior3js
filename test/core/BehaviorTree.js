@@ -1,6 +1,6 @@
-import {spy, stub} from 'sinon';
-import BehaviorTree from '../../src/core/BehaviorTree';
-import {assert} from 'chai';
+const {spy, stub} = require('sinon');
+const BehaviorTree = require('../../src/core/BehaviorTree');
+const {assert} = require('chai');
 
 // load and dump JSON model
 

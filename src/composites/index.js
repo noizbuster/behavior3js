@@ -1,4 +1,12 @@
-export {default as MemPriority} from './MemPriority';
-export {default as MemSequence} from './MemSequence';
-export {default as Priority} from './Priority';
-export {default as Sequence} from './Sequence';
+const MemPriority = require('./MemPriority');
+const MemSequence = require('./MemSequence');
+const Priority = require('./Priority');
+const Sequence = require('./Sequence');
+
+
+module.exports = {
+    MemPriority,
+    MemSequence,
+    Priority,
+    Sequence
+};

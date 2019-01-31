@@ -1,65 +1,65 @@
-import {VERSION, SUCCESS, FAILURE, RUNNING, ERROR, COMPOSITE, DECORATOR, ACTION, CONDITION} from './constants';
-import {createUUID} from './b3.functions';
+const {VERSION, SUCCESS, FAILURE, RUNNING, ERROR, COMPOSITE, DECORATOR, ACTION, CONDITION} = require('./constants');
+const {createUUID} = require('./b3.functions');
 
-import Error from './actions/Error';
-import Failer from './actions/Failer';
-import Runner from './actions/Runner';
-import Succeeder from './actions/Succeeder';
-import Wait from './actions/Wait';
+const Error = require('./actions/Error');
+const Failer = require('./actions/Failer');
+const Runner = require('./actions/Runner');
+const Succeeder = require('./actions/Succeeder');
+const Wait = require('./actions/Wait');
 
-import MemPriority from './composites/MemPriority';
-import MemSequence from './composites/MemSequence';
-import Priority from './composites/Priority';
-import Sequence from './composites/Sequence';
+const MemPriority = require('./composites/MemPriority');
+const MemSequence = require('./composites/MemSequence');
+const Priority = require('./composites/Priority');
+const Sequence = require('./composites/Sequence');
 
-import Action from './core/Action';
-import BaseNode from './core/BaseNode';
-import BehaviorTree from './core/BehaviorTree';
-import Blackboard from './core/Blackboard';
-import Composite from './core/Composite';
-import Condition from './core/Condition';
-import Decorator from './core/Decorator';
-import Tick from './core/Tick';
+const Action = require('./core/Action');
+const BaseNode = require('./core/BaseNode');
+const BehaviorTree = require('./core/BehaviorTree');
+const Blackboard = require('./core/Blackboard');
+const Composite = require('./core/Composite');
+const Condition = require('./core/Condition');
+const Decorator = require('./core/Decorator');
+const Tick = require('./core/Tick');
 
-import Inverter from './decorators/Inverter';
-import Limiter from './decorators/Limiter';
-import MaxTime from './decorators/MaxTime';
-import RepeatUntilFailure from './decorators/RepeatUntilFailure';
-import RepeatUntilSuccess from './decorators/RepeatUntilSuccess';
-import Repeater from './decorators/Repeater';
+const Inverter = require('./decorators/Inverter');
+const Limiter = require('./decorators/Limiter');
+const MaxTime = require('./decorators/MaxTime');
+const RepeatUntilFailure = require('./decorators/RepeatUntilFailure');
+const RepeatUntilSuccess = require('./decorators/RepeatUntilSuccess');
+const Repeater = require('./decorators/Repeater');
 
-export {
-  VERSION,
-  SUCCESS,
-  FAILURE,
-  RUNNING,
-  ERROR,
-  COMPOSITE,
-  DECORATOR,
-  ACTION,
-  CONDITION,
-  createUUID,
-  Error,
-  Failer,
-  Runner,
-  Succeeder,
-  Wait,
-  MemPriority,
-  MemSequence,
-  Priority,
-  Sequence,
-  Action,
-  BaseNode,
-  BehaviorTree,
-  Blackboard,
-  Composite,
-  Condition,
-  Decorator,
-  Tick,
-  Inverter,
-  Limiter,
-  MaxTime,
-  RepeatUntilFailure,
-  RepeatUntilSuccess,
-  Repeater
+module.exports = {
+    VERSION,
+    SUCCESS,
+    FAILURE,
+    RUNNING,
+    ERROR,
+    COMPOSITE,
+    DECORATOR,
+    ACTION,
+    CONDITION,
+    createUUID,
+    Error,
+    Failer,
+    Runner,
+    Succeeder,
+    Wait,
+    MemPriority,
+    MemSequence,
+    Priority,
+    Sequence,
+    Action,
+    BaseNode,
+    BehaviorTree,
+    Blackboard,
+    Composite,
+    Condition,
+    Decorator,
+    Tick,
+    Inverter,
+    Limiter,
+    MaxTime,
+    RepeatUntilFailure,
+    RepeatUntilSuccess,
+    Repeater
 };

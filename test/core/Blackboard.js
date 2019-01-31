@@ -1,5 +1,5 @@
-import {assert} from 'chai';
-import Blackboard from '../../src/core/Blackboard';
+const {assert} = require('chai');
+const Blackboard = require('../../src/core/Blackboard');
 
 /* BLACKBOARD ============================================================== */
 suite('Core: Blackboard', function() {

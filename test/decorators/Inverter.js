@@ -1,8 +1,8 @@
-import {stub} from 'sinon';
-import {assert} from 'chai';
-import TickStub from '../TickStub';
-import Inverter from '../../src/decorators/Inverter';
-import {SUCCESS, FAILURE, ERROR, RUNNING} from '../../src/constants';
+const {stub} = require('sinon');
+const {assert} = require('chai');
+const TickStub = require('../TickStub');
+const Inverter = require('../../src/decorators/Inverter');
+const {SUCCESS, FAILURE, ERROR, RUNNING} = require('../../src/constants');
 
 suite('Decorator: Inverter', function() {
     test('Name', function() {

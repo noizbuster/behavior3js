@@ -1,8 +1,8 @@
-import {stub} from 'sinon';
-import {assert} from 'chai';
-import TickStub from '../TickStub';
-import Repeater from '../../src/decorators/Repeater';
-import {SUCCESS, RUNNING, ERROR} from '../../src/constants';
+const {stub} = require('sinon');
+const {assert} = require('chai');
+const TickStub = require('../TickStub');
+const Repeater = require('../../src/decorators/Repeater');
+const {SUCCESS, RUNNING, ERROR} = require('../../src/constants');
 
 suite('Decorator: Repeater', function() {
     test('Name', function() {

@@ -1,5 +1,5 @@
-import BaseNode from './BaseNode';
-import {DECORATOR} from '../constants';
+const BaseNode = require('./BaseNode');
+const {DECORATOR} = require('../constants');
 
 /**
  * Decorator is the base class for all decorator nodes. Thus, if you want to
@@ -41,24 +41,24 @@ import {DECORATOR} from '../constants';
  * @extends BaseNode
  **/
 
-export default class Decorator extends BaseNode {
+module.exports = class Decorator extends BaseNode {
 
-  /**
-   * Creates an instance of Decorator.
-   * @param {Object} options 
-   * @param {String} options.name Node name. Default to `Decorator`.
-   * @param {String} options.title 
-   * @param {Object} options.properties 
-   * @memberof Decorator
-   */
-  constructor({child = null, name = 'Decorator', title, properties} = {}) {
-    super({
-      category: DECORATOR,
-      name,
-      title,
-      properties,
-    });
-    this.child = child;
-  }
+    /**
+     * Creates an instance of Decorator.
+     * @param {Object} options
+     * @param {String} options.name Node name. Default to `Decorator`.
+     * @param {String} options.title
+     * @param {Object} options.properties
+     * @memberof Decorator
+     */
+    constructor({child = null, name = 'Decorator', title, properties} = {}) {
+        super({
+            category: DECORATOR,
+            name,
+            title,
+            properties,
+        });
+        this.child = child;
+    }
 
 };

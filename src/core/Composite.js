@@ -1,5 +1,5 @@
-import BaseNode from '../core/BaseNode';
-import {COMPOSITE} from '../constants';
+const BaseNode = require('../core/BaseNode');
+const {COMPOSITE} = require('../constants');
 
 /**
  * Composite is the base class for all composite nodes. Thus, if you want to
@@ -41,25 +41,25 @@ import {COMPOSITE} from '../constants';
  * @extends BaseNode
  **/
 
-export default class Composite extends BaseNode {
+module.exports = class Composite extends BaseNode {
 
-  /**
-   * Creates an instance of Composite.
-   * @param {Object} options 
-   * @param {BaseNode[]} options.children 
-   * @param {String} options.name Node name. Default to `Composite`.
-   * @param {String} options.title 
-   * @param {Object} options.properties 
-   * @memberof Composite
-   */
-  constructor({children = [], name = 'Composite', title, properties} = {}) {
-    super({
-      category: COMPOSITE,
-      name,
-      title,
-      properties,
-    });
-    this.children = (children).slice(0);
-  }
+    /**
+     * Creates an instance of Composite.
+     * @param {Object} options
+     * @param {BaseNode[]} options.children
+     * @param {String} options.name Node name. Default to `Composite`.
+     * @param {String} options.title
+     * @param {Object} options.properties
+     * @memberof Composite
+     */
+    constructor({children = [], name = 'Composite', title, properties} = {}) {
+        super({
+            category: COMPOSITE,
+            name,
+            title,
+            properties,
+        });
+        this.children = (children).slice(0);
+    }
 
 };

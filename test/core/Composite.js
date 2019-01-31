@@ -1,6 +1,6 @@
-import {assert} from 'chai';
-import Composite from '../../src/core/Composite';
-import {COMPOSITE} from '../../src/constants';
+const {assert} = require('chai');
+const Composite = require('../../src/core/Composite');
+const {COMPOSITE} = require('../../src/constants');
 
 suite('Core: Composite', function() {
     test('Category', function() {

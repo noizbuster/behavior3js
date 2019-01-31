@@ -1,8 +1,8 @@
-import {stub} from 'sinon';
-import {assert} from 'chai';
-import TickStub from '../TickStub';
-import MaxTime from '../../src/decorators/MaxTime';
-import {RUNNING, FAILURE, SUCCESS} from '../../src/constants';
+const {stub} = require('sinon');
+const {assert} = require('chai');
+const TickStub = require('../TickStub');
+const MaxTime = require('../../src/decorators/MaxTime');
+const {RUNNING, FAILURE, SUCCESS} = require('../../src/constants');
 
 suite('Decorator: MaxTime', function() {
     test('Name', function() {

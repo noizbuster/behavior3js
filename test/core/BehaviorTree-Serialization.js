@@ -1,12 +1,12 @@
-import {assert} from 'chai';
-import BehaviorTree from '../../src/core/BehaviorTree';
-import Priority from '../../src/composites/Priority';
-import MemSequence from '../../src/composites/MemSequence';
-import Inverter from '../../src/decorators/Inverter';
-import MaxTime from '../../src/decorators/MaxTime';
-import Condition from '../../src/core/Condition';
-import Wait from '../../src/actions/Wait';
-import {ACTION, CONDITION} from '../../src/constants';
+const {assert} = require('chai');
+const BehaviorTree = require('../../src/core/BehaviorTree');
+const Priority = require('../../src/composites/Priority');
+const MemSequence = require('../../src/composites/MemSequence');
+const Inverter = require('../../src/decorators/Inverter');
+const MaxTime = require('../../src/decorators/MaxTime');
+const Condition = require('../../src/core/Condition');
+const Wait = require('../../src/actions/Wait');
+const {ACTION, CONDITION} = require('../../src/constants');
 
 // load and dump JSON model
 

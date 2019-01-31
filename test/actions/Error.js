@@ -1,7 +1,7 @@
-import {assert} from 'chai';
-import TickStub from '../TickStub';
-import Error from '../../src/actions/Error';
-import {ERROR} from '../../src/constants';
+const {assert} = require('chai');
+const TickStub = require('../TickStub');
+const Error = require('../../src/actions/Error');
+const {ERROR} = require('../../src/constants');
 
 suite('Action: Error', function() {
     test('Name', function() {

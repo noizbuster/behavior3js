@@ -1,6 +1,6 @@
-import {spy, stub} from 'sinon';
+const {spy, stub} = require('sinon');
 
-export default function TickStub() {
+module.exports = function TickStub() {
   return {
     'tree'      : {'id': 'tree1'},
     'blackboard': {

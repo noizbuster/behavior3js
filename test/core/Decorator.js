@@ -1,6 +1,6 @@
-import {assert} from 'chai';
-import Decorator from '../../src/core/Decorator';
-import {DECORATOR} from '../../src/constants';
+const {assert} = require('chai');
+const Decorator = require('../../src/core/Decorator');
+const {DECORATOR} = require('../../src/constants');
 
 suite('Core: Decorator', function() {
     test('Category', function() {

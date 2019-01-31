@@ -1,5 +1,14 @@
-export {default as Error} from './Error';
-export {default as Failer} from './Failer';
-export {default as Runner} from './Runner';
-export {default as Succeeder} from './Succeeder';
-export {default as Wait} from './Wait';
+const Error = require('./Error');
+const Failer = require('./Failer');
+const Runner = require('./Runner');
+const Succeeder = require('./Succeeder');
+const Wait = require('./Wait');
+
+
+module.exports = {
+    Error,
+    Failer,
+    Runner,
+    Succeeder,
+    Wait
+};

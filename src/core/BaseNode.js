@@ -1,5 +1,5 @@
-import {createUUID} from '../b3.functions';
-import {RUNNING} from '../constants';
+const {createUUID} = require('../b3.functions');
+const {RUNNING} = require('../constants');
 
 /**
  * The BaseNode class is used as super class to all nodes in BehaviorJS. It
@@ -23,215 +23,223 @@ import {RUNNING} from '../constants';
  * @class BaseNode
  **/
 
-export default class BaseNode {
-
-  /**
-   * Initialization method.
-   * @method initialize
-   * @constructor
-   **/
-  constructor({category, name, title, description, properties} = {}) {
-
-    this.id = createUUID();
+module.exports = class BaseNode {
 
     /**
-     * Node category. Must be `COMPOSITE`, `DECORATOR`, `ACTION` or
-     * `CONDITION`. This is defined automatically be inheriting the
-     * correspondent class.
-     * 
-     * @member BaseNode#category
+     * Initialization method.
+     * @method initialize
+     * @constructor
      **/
-    this.category = category || '';
+    constructor({category, name, title, description, properties} = {}) {
 
-    /**
-     * Node name. Must be a unique identifier,
-     * preferable the same name of the
-     * class. You have to set the node name in the prototype.
-     * 
-     * @member BaseNode#name
-     **/
-    this.name = name || '';
+        this.id = createUUID();
 
-    /**
-     * Node title.
-     * 
-     * @optional
-     * @member BaseNode#title
-     **/
-    this.title = title || this.name;
+        /**
+         * Node category. Must be `COMPOSITE`, `DECORATOR`, `ACTION` or
+         * `CONDITION`. This is defined automatically be inheriting the
+         * correspondent class.
+         *
+         * @member BaseNode#category
+         **/
+        this.category = category || '';
 
-    /**
-     * Node description.
-     * 
-     * @member BaseNode#description
-     */
-    this.description = description || '';
+        /**
+         * Node name. Must be a unique identifier,
+         * preferable the same name of the
+         * class. You have to set the node name in the prototype.
+         *
+         * @member BaseNode#name
+         **/
+        this.name = name || '';
 
-    /**
-     * A dictionary (key, value) describing the node properties. Useful for
-     * defining custom variables inside the visual editor.
-     *
-     * @property properties
-     * @type {Object}
-     * @readonly
-     **/
-    this.properties = properties || {};
+        /**
+         * Node title.
+         *
+         * @optional
+         * @member BaseNode#title
+         **/
+        this.title = title || this.name;
 
-    /**
-     * A dictionary (key, value) describing the node parameters. Useful for
-     * defining parameter values in the visual editor. Note: this is only
-     * useful for nodes when loading trees from JSON files.
-     *
-     * **Deprecated since 0.2.0. This is too similar to the properties
-     * attribute, thus, this attribute is deprecated in favor to
-     * `properties`.**
-     *
-     * @property {Object} parameters
-     * @deprecated since 0.2.0.
-     * @readonly
-     **/
-    this.parameters = {};
-  }
+        /**
+         * Node description.
+         *
+         * @member BaseNode#description
+         */
+        this.description = description || '';
 
-  /**
-   * This is the main method to propagate the tick signal to this node. This
-   * method calls all callbacks: `enter`, `open`, `tick`, `close`, and
-   * `exit`. It only opens a node if it is not already open. In the same
-   * way, this method only close a node if the node  returned a status
-   * different of `RUNNING`.
-   *
-   * @method _execute
-   * @param {Tick} tick A tick instance.
-   * @return {Constant} The tick state.
-   * @protected
-   **/
-  _execute(tick) {
-    // ENTER
-    this._enter(tick);
+        /**
+         * A dictionary (key, value) describing the node properties. Useful for
+         * defining custom variables inside the visual editor.
+         *
+         * @property properties
+         * @type {Object}
+         * @readonly
+         **/
+        this.properties = properties || {};
 
-    // OPEN
-    if (!tick.blackboard.get('isOpen', tick.tree.id, this.id)) {
-      this._open(tick);
+        /**
+         * A dictionary (key, value) describing the node parameters. Useful for
+         * defining parameter values in the visual editor. Note: this is only
+         * useful for nodes when loading trees from JSON files.
+         *
+         * **Deprecated since 0.2.0. This is too similar to the properties
+         * attribute, thus, this attribute is deprecated in favor to
+         * `properties`.**
+         *
+         * @property {Object} parameters
+         * @deprecated since 0.2.0.
+         * @readonly
+         **/
+        this.parameters = {};
     }
 
-    // TICK
-    var status = this._tick(tick);
+    /**
+     * This is the main method to propagate the tick signal to this node. This
+     * method calls all callbacks: `enter`, `open`, `tick`, `close`, and
+     * `exit`. It only opens a node if it is not already open. In the same
+     * way, this method only close a node if the node  returned a status
+     * different of `RUNNING`.
+     *
+     * @method _execute
+     * @param {Tick} tick A tick instance.
+     * @return {Constant} The tick state.
+     * @protected
+     **/
+    _execute(tick) {
+        // ENTER
+        this._enter(tick);
 
-    // CLOSE
-    if (status !== RUNNING) {
-      this._close(tick);
+        // OPEN
+        if (!tick.blackboard.get('isOpen', tick.tree.id, this.id)) {
+            this._open(tick);
+        }
+
+        // TICK
+        const status = this._tick(tick);
+        tick.blackboard.set('lastStatus', status, tick.tree.id, this.id);
+
+        // CLOSE
+        if (status !== RUNNING) {
+            this._close(tick);
+            tick.blackboard.set('status', null, tick.tree.id, this.id);
+        }
+
+        // EXIT
+        this._exit(tick);
+
+        return status;
     }
 
-    // EXIT
-    this._exit(tick);
+    /**
+     * Wrapper for enter method.
+     * @method _enter
+     * @param {Tick} tick A tick instance.
+     * @protected
+     **/
+    _enter(tick) {
+        tick._enterNode(this);
+        this.enter(tick);
+    }
 
-    return status;
-  }
+    /**
+     * Wrapper for open method.
+     * @method _open
+     * @param {Tick} tick A tick instance.
+     * @protected
+     **/
+    _open(tick) {
+        tick._openNode(this);
+        tick.blackboard.set('isOpen', true, tick.tree.id, this.id);
+        tick.blackboard.set('status', RUNNING, tick.tree.id, this.id);
+        this.open(tick);
+    }
 
-  /**
-   * Wrapper for enter method.
-   * @method _enter
-   * @param {Tick} tick A tick instance.
-   * @protected
-   **/
-  _enter(tick) {
-    tick._enterNode(this);
-    this.enter(tick);
-  }
+    /**
+     * Wrapper for tick method.
+     * @method _tick
+     * @param {Tick} tick A tick instance.
+     * @return {Constant} A state constant.
+     * @protected
+     **/
+    _tick(tick) {
+        tick._tickNode(this);
+        return this.tick(tick);
+    }
 
-  /**
-   * Wrapper for open method.
-   * @method _open
-   * @param {Tick} tick A tick instance.
-   * @protected
-   **/
-  _open(tick) {
-    tick._openNode(this);
-    tick.blackboard.set('isOpen', true, tick.tree.id, this.id);
-    this.open(tick);
-  }
+    /**
+     * Wrapper for close method.
+     * @method _close
+     * @param {Tick} tick A tick instance.
+     * @protected
+     **/
+    _close(tick) {
+        tick._closeNode(this);
+        tick.blackboard.set('isOpen', false, tick.tree.id, this.id);
+        this.close(tick);
+    }
 
-  /**
-   * Wrapper for tick method.
-   * @method _tick
-   * @param {Tick} tick A tick instance.
-   * @return {Constant} A state constant.
-   * @protected
-   **/
-  _tick(tick) {
-    tick._tickNode(this);
-    return this.tick(tick);
-  }
+    /**
+     * Wrapper for exit method.
+     * @method _exit
+     * @param {Tick} tick A tick instance.
+     * @protected
+     **/
+    _exit(tick) {
+        tick._exitNode(this);
+        this.exit(tick);
+    }
 
-  /**
-   * Wrapper for close method.
-   * @method _close
-   * @param {Tick} tick A tick instance.
-   * @protected
-   **/
-  _close(tick) {
-    tick._closeNode(this);
-    tick.blackboard.set('isOpen', false, tick.tree.id, this.id);
-    this.close(tick);
-  }
+    /**
+     * Enter method, override this to use. It is called every time a node is
+     * asked to execute, before the tick itself.
+     *
+     * @method enter
+     * @param {Tick} tick A tick instance.
+     **/
+    enter(tick) {
+    }
 
-  /**
-   * Wrapper for exit method.
-   * @method _exit
-   * @param {Tick} tick A tick instance.
-   * @protected
-   **/
-  _exit(tick) {
-    tick._exitNode(this);
-    this.exit(tick);
-  }
+    /**
+     * Open method, override this to use. It is called only before the tick
+     * callback and only if the not isn't closed.
+     *
+     * Note: a node will be closed if it returned `RUNNING` in the tick.
+     *
+     * @method open
+     * @param {Tick} tick A tick instance.
+     **/
+    open(tick) {
+    }
 
-  /**
-   * Enter method, override this to use. It is called every time a node is
-   * asked to execute, before the tick itself.
-   *
-   * @method enter
-   * @param {Tick} tick A tick instance.
-   **/
-  enter(tick) {}
+    /**
+     * Tick method, override this to use. This method must contain the real
+     * execution of node (perform a task, call children, etc.). It is called
+     * every time a node is asked to execute.
+     *
+     * @method tick
+     * @param {Tick} tick A tick instance.
+     **/
+    tick(tick) {
+    }
 
-  /**
-   * Open method, override this to use. It is called only before the tick
-   * callback and only if the not isn't closed.
-   *
-   * Note: a node will be closed if it returned `RUNNING` in the tick.
-   *
-   * @method open
-   * @param {Tick} tick A tick instance.
-   **/
-  open(tick) {}
+    /**
+     * Close method, override this to use. This method is called after the tick
+     * callback, and only if the tick return a state different from
+     * `RUNNING`.
+     *
+     * @method close
+     * @param {Tick} tick A tick instance.
+     **/
+    close(tick) {
+    }
 
-  /**
-   * Tick method, override this to use. This method must contain the real
-   * execution of node (perform a task, call children, etc.). It is called
-   * every time a node is asked to execute.
-   *
-   * @method tick
-   * @param {Tick} tick A tick instance.
-   **/
-  tick(tick) {}
-
-  /**
-   * Close method, override this to use. This method is called after the tick
-   * callback, and only if the tick return a state different from
-   * `RUNNING`.
-   *
-   * @method close
-   * @param {Tick} tick A tick instance.
-   **/
-  close(tick) {}
-
-  /**
-   * Exit method, override this to use. Called every time in the end of the
-   * execution.
-   *
-   * @method exit
-   * @param {Tick} tick A tick instance.
-   **/
-  exit(tick) {}
+    /**
+     * Exit method, override this to use. Called every time in the end of the
+     * execution.
+     *
+     * @method exit
+     * @param {Tick} tick A tick instance.
+     **/
+    exit(tick) {
+    }
 };

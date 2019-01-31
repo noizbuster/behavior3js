@@ -25,7 +25,7 @@ gulp.task('_jshint', function() {
 gulp.task('_build', function() {
   return browserify('./src/index.js', {standalone: 'b3'})
           .transform(babelify, {
-            presets: ['es2015']
+            presets: ['stage-0']
           })
           .transform('uglifyify')
           .bundle()

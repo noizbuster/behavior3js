@@ -1,7 +1,7 @@
-import {assert} from 'chai';
-import TickStub from '../TickStub';
-import Runner from '../../src/actions/Runner';
-import {RUNNING} from '../../src/constants';
+const {assert} = require('chai');
+const TickStub = require('../TickStub');
+const Runner = require('../../src/actions/Runner');
+const {RUNNING} = require('../../src/constants');
 
 suite('Action: Runner', function() {
     test('Name', function() {

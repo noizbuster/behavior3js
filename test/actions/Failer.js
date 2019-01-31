@@ -1,7 +1,7 @@
-import {assert} from 'chai';
-import TickStub from '../TickStub';
-import Failer from '../../src/actions/Failer';
-import {FAILURE} from '../../src/constants';
+const {assert} = require('chai');
+const TickStub = require('../TickStub');
+const Failer = require('../../src/actions/Failer');
+const {FAILURE} = require('../../src/constants');
 
 suite('Action: Failer', function() {
     test('Name', function() {

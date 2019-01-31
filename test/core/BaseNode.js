@@ -1,8 +1,8 @@
-import {spy, stub} from 'sinon';
-import {assert} from 'chai';
-import TickStub from '../TickStub';
-import BaseNode from '../../src/core/BaseNode';
-import {SUCCESS, RUNNING} from '../../src/constants';
+const {spy, stub} = require('sinon');
+const {assert} = require('chai');
+const TickStub = require('../TickStub');
+const BaseNode = require('../../src/core/BaseNode');
+const {SUCCESS, RUNNING} = require('../../src/constants');
 
 suite('Core: BaseNode', function() {
     test('Initialization', function() {

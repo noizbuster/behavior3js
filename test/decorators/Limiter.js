@@ -1,8 +1,8 @@
-import {stub} from 'sinon';
-import {assert} from 'chai';
-import TickStub from '../TickStub';
-import Limiter from '../../src/decorators/Limiter';
-import {SUCCESS, RUNNING} from '../../src/constants';
+const {stub} = require('sinon');
+const {assert} = require('chai');
+const TickStub = require('../TickStub');
+const Limiter = require('../../src/decorators/Limiter');
+const {SUCCESS, RUNNING} = require('../../src/constants');
 
 suite('Decorator: Limiter', function() {
     test('Name', function() {

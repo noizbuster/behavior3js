@@ -1,8 +1,8 @@
-import {stub} from 'sinon';
-import {assert} from 'chai';
-import TickStub from '../TickStub';
-import MemPriority from '../../src/composites/MemPriority';
-import {FAILURE, RUNNING, SUCCESS} from '../../src/constants';
+const {stub} = require('sinon');
+const {assert} = require('chai');
+const TickStub = require('../TickStub');
+const MemPriority = require('../../src/composites/MemPriority');
+const {FAILURE, RUNNING, SUCCESS} = require('../../src/constants');
 
 suite('Composite: MemPriority', function() {
     var getNode = function() {

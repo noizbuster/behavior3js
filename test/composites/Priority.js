@@ -1,7 +1,7 @@
-import {stub, spy} from 'sinon';
-import {assert} from 'chai';
-import Priority from '../../src/composites/Priority';
-import {FAILURE, SUCCESS, RUNNING} from '../../src/constants';
+const {stub, spy} = require('sinon');
+const {assert} = require('chai');
+const Priority = require('../../src/composites/Priority');
+const {FAILURE, SUCCESS, RUNNING} = require('../../src/constants');
 
 suite('Composite: Priority', function() {
     var getNode = function(status) {

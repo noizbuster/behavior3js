@@ -1,5 +1,5 @@
-import BaseNode from '../core/BaseNode';
-import {ACTION} from '../constants';
+const BaseNode = require('../core/BaseNode');
+const {ACTION} = require('../constants');
 
 /**
  * Action is the base class for all action nodes. Thus, if you want to create
@@ -20,23 +20,23 @@ import {ACTION} from '../constants';
  * @extends BaseNode
  **/
 
-export default class Action extends BaseNode {
-  
-  /**
-   * Creates an instance of Action.
-   * @param {Object} options 
-   * @param {String} options.name Node name. Default to `Action`.
-   * @param {String} options.title
-   * @param {Object} options.properties 
-   * @memberof Action
-   */
-  constructor({name = 'Action', title, properties} = {}){
-    super({
-      category: ACTION,
-      name,
-      title,
-      properties,
-    });
-  }
+module.exports = class Action extends BaseNode {
+
+    /**
+     * Creates an instance of Action.
+     * @param {Object} [options]
+     * @param {String} [options.name='Action'] Node name.
+     * @param {String} [options.title]
+     * @param {Object} [options.properties]
+     * @memberof Action
+     */
+    constructor({name, title, properties} = {}) {
+        super({
+            category: ACTION,
+            name: name || 'action',
+            title,
+            properties,
+        });
+    }
 
 };

@@ -1,5 +1,5 @@
-import {ERROR} from '../constants';
-import Action from '../core/Action';
+const {ERROR} = require('../constants');
+const Action = require('../core/Action');
 
 /**
  * This action node returns `ERROR` always.
@@ -8,23 +8,23 @@ import Action from '../core/Action';
  * @class Error
  * @extends Action
  **/
-export default class Error extends Action {
+module.exports = class Error extends Action {
 
-  /**
-   * Creates an instance of Error.
-   * @memberof Error
-   */
-  constructor(){
-    super({name: 'Error'});
-  }
+    /**
+     * Creates an instance of Error.
+     * @memberof Error
+     */
+    constructor() {
+        super({name: 'Error'});
+    }
 
-  /**
-   * Tick method.
-   * @method tick
-   * @param {b3.Tick} tick A tick instance.
-   * @return {Constant} Always return `ERROR`.
-   **/
-  tick(tick) {
-    return ERROR;
-  }
+    /**
+     * Tick method.
+     * @method tick
+     * @param {b3.Tick} tick A tick instance.
+     * @return {Constant} Always return `ERROR`.
+     **/
+    tick(tick) {
+        return ERROR;
+    }
 };

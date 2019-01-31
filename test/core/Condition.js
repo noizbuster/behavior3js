@@ -1,6 +1,6 @@
-import {assert} from 'chai';
-import Condition from '../../src/core/Condition';
-import {CONDITION} from '../../src/constants';
+const {assert} = require('chai');
+const Condition = require('../../src/core/Condition');
+const {CONDITION} = require('../../src/constants');
 
 suite('Core: Condition', function() {
     test('Category', function() {

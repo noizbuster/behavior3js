@@ -1,5 +1,5 @@
-import {assert} from 'chai';
-import Tick from '../../src/core/Tick';
+const {assert} = require('chai');
+const Tick = require('../../src/core/Tick');
 // store open children
 // call debug
 

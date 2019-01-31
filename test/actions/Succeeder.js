@@ -1,7 +1,7 @@
-import {assert} from 'chai';
-import TickStub from '../TickStub';
-import Succeeder from '../../src/actions/Succeeder';
-import {SUCCESS} from '../../src/constants';
+const {assert} = require('chai');
+const TickStub = require('../TickStub');
+const Succeeder = require('../../src/actions/Succeeder');
+const {SUCCESS} = require('../../src/constants');
 
 suite('Action: Succeeder', function() {
     test('Name', function() {

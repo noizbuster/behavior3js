@@ -1,6 +1,6 @@
-import {assert} from 'chai';
-import Action from '../../src/core/Action';
-import {ACTION} from '../../src/constants';
+const {assert} = require('chai');
+const Action = require('../../src/core/Action');
+const {ACTION} = require('../../src/constants');
 
 suite('Core: Action', function() {
     test('Category', function() {
