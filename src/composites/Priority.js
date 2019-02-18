@@ -19,9 +19,10 @@ module.exports = class Priority extends Composite {
      * @param {Array} params.children
      * @memberof Priority
      */
-    constructor({children = []} = {}) {
+    constructor({children = [], title} = {}) {
         super({
             name: 'Priority',
+            title,
             children
         });
     }
@@ -33,8 +34,8 @@ module.exports = class Priority extends Composite {
      * @return {Constant} A state constant.
      **/
     tick(tick) {
-        for (var i = 0; i < this.children.length; i++) {
-            var status = this.children[i]._execute(tick);
+        for (let i = 0; i < this.children.length; i++) {
+            const status = this.children[i]._execute(tick);
 
             if (status !== FAILURE) {
                 return status;

@@ -20,9 +20,10 @@ module.exports = class MemPriority extends Composite {
      * @param {Array} params.children
      * @memberof MemPriority
      */
-    constructor({children = []} = {}) {
+    constructor({children = [], title} = {}) {
         super({
             children,
+            title,
             name: 'MemPriority',
         });
     }
@@ -43,15 +44,14 @@ module.exports = class MemPriority extends Composite {
      * @return {Constant} A state constant.
      **/
     tick(tick) {
-        var child = tick.blackboard.get('runningChild', tick.tree.id, this.id);
-        for (var i = child; i < this.children.length; i++) {
-            var status = this.children[i]._execute(tick);
+        const child = tick.blackboard.get('runningChild', tick.tree.id, this.id);
+        for (let i = child; i < this.children.length; i++) {
+            const status = this.children[i]._execute(tick);
 
             if (status !== FAILURE) {
-                if (status === RUNNING) {
+                // if (status === RUNNING) {
                     tick.blackboard.set('runningChild', i, tick.tree.id, this.id);
-                }
-
+                // }
                 return status;
             }
         }
