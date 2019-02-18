@@ -13,6 +13,7 @@ const Priority = require('./composites/Priority');
 const Sequence = require('./composites/Sequence');
 
 const Action = require('./core/Action');
+const AsyncAction = require('./core/AsyncAction');
 const BaseNode = require('./core/BaseNode');
 const BehaviorTree = require('./core/BehaviorTree');
 const Blackboard = require('./core/Blackboard');
@@ -49,6 +50,7 @@ module.exports = {
     Priority,
     Sequence,
     Action,
+    AsyncAction,
     BaseNode,
     BehaviorTree,
     Blackboard,
