@@ -163,7 +163,11 @@ module.exports = class BaseNode {
      **/
     _tick(tick) {
         tick._tickNode(this);
-        return this.tick(tick);
+        const result = this.tick(tick);
+        if (tick.debug) {
+            console.log(`tick result:\t${this.title}: ` + result);
+        }
+        return result;
     }
 
     /**
