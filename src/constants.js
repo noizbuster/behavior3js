@@ -1,16 +1,22 @@
 /**
  * @typedef {number} Constant
  */
-
 const VERSION = '0.2.2';
-const SUCCESS = 1;
-const FAILURE = 2;
-const RUNNING = 3;
-const ERROR = 4;
+let SUCCESS = 1;
+let FAILURE = 2;
+let RUNNING = 3;
+let ERROR = 4;
 const COMPOSITE = 'composite';
 const DECORATOR = 'decorator';
 const ACTION = 'action';
 const CONDITION = 'condition';
+
+if(process.env.NODE_ENV === 'development'){
+    SUCCESS = 'SUCCESS';
+    FAILURE = 'FAILURE';
+    RUNNING = 'RUNNING';
+    ERROR = 'ERROR';
+}
 
 module.exports = {
     VERSION,
