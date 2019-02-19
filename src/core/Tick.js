@@ -73,6 +73,9 @@ module.exports = class Tick {
          * @readOnly
          **/
         this._nodeCount = 0;
+        this.debugLog = function (node) {
+            return `\t${node.title} - ${node.name} - ${node.id}`;
+        };
     }
 
     /**
@@ -84,6 +87,9 @@ module.exports = class Tick {
     _enterNode(node) {
         this._nodeCount++;
         this._openNodes.push(node);
+        if (this.debug) {
+            console.log('enter node', this.debugLog(node));
+        }
 
         // TODO: call debug here
     }
@@ -95,6 +101,9 @@ module.exports = class Tick {
      * @protected
      **/
     _openNode(node) {
+        if (this.debug) {
+            console.log('open node', this.debugLog(node));
+        }
         // TODO: call debug here
     }
 
@@ -105,6 +114,9 @@ module.exports = class Tick {
      * @protected
      **/
     _tickNode(node) {
+        if (this.debug) {
+            console.log('tick node', this.debugLog(node));
+        }
         // TODO: call debug here
     }
 
@@ -115,6 +127,9 @@ module.exports = class Tick {
      * @protected
      **/
     _closeNode(node) {
+        if (this.debug) {
+            console.log('close node', this.debugLog(node));
+        }
         // TODO: call debug here
         this._openNodes.pop();
     }
@@ -126,6 +141,9 @@ module.exports = class Tick {
      * @protected
      **/
     _exitNode(node) {
+        if (this.debug) {
+            console.log('exit node', this.debugLog(node));
+        }
         // TODO: call debug here
     }
 };
