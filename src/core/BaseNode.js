@@ -30,7 +30,7 @@ module.exports = class BaseNode {
      * @method initialize
      * @constructor
      **/
-    constructor({category, name, title, description, properties} = {}) {
+    constructor({category, name, title, description, tick, properties} = {}) {
 
         this.id = createUUID();
 
@@ -91,6 +91,9 @@ module.exports = class BaseNode {
          * @readonly
          **/
         this.parameters = {};
+        if (tick) {
+            this.tick = tick;
+        }
     }
 
     /**
@@ -162,12 +165,17 @@ module.exports = class BaseNode {
      * @protected
      **/
     _tick(tick) {
-        tick._tickNode(this);
-        const result = this.tick(tick);
-        if (tick.debug) {
-            console.log(`tick result:\t${this.title}: ` + result);
+        try {
+            tick._tickNode(this);
+            const result = this.tick(tick);
+            if (tick.debug) {
+                console.log(`tick result:\t${this.title}: ` + result);
+            }
+            return result;
+        } catch (e) {
+            console.error(`failed to execute tick on node [${this.name}] ${this.title}(${this.id})`);
+            throw e;
         }
-        return result;
     }
 
     /**

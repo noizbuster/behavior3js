@@ -30,12 +30,13 @@ module.exports = class Action extends BaseNode {
      * @param {Object} [options.properties]
      * @memberof Action
      */
-    constructor({name, title, properties} = {}) {
+    constructor({name, title, tick, properties} = {}) {
         super({
             category: ACTION,
             name: name || 'action',
             title,
-            properties,
+            tick,
+            properties
         });
     }
 

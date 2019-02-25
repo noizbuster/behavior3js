@@ -32,20 +32,18 @@ class AsyncAction extends BaseNode {
     /**
      * @constructor
      */
-    constructor({name = 'AsyncAction', title, properties, run, onResolve, onReject} = {}) {
+    constructor({name = 'AsyncAction', title, properties, tick, onResolve, onReject} = {}) {
         /**
          * @member {string} name
          */
         super({
             category: ACTION,
             name: name || 'AsyncAction',
-            title,
+            title: title,
+            tick: tick,
             properties: _.assign(properties, {timeout: -1}),
         });
 
-        this.run = run || async function () {
-            return FAILURE;
-        };
         this.onResolve = onResolve;
         this.onReject = onReject;
     }
@@ -77,7 +75,23 @@ class AsyncAction extends BaseNode {
         return t;
     }
 
-    tick(tick) {
+    /**
+     * Wrapper for tick method.
+     * @method _tick
+     * @param {Tick} tick A tick instance.
+     * @return {Constant} A state constant.
+     * @protected
+     **/
+    _tick(tick) {
+        tick._tickNode(this);
+        const result = this.asyncTick(tick);
+        if (tick.debug) {
+            console.log(`tick result:\t${this.title}: ` + result);
+        }
+        return result;
+    }
+
+    asyncTick(tick) {
         const bb = tick.blackboard;
         const l = tick.target.logger;
 
@@ -88,7 +102,7 @@ class AsyncAction extends BaseNode {
         }
 
         this.updateTimeout();
-        this.run(tick).then(
+        this.tick(tick).then(
             (result) => {
                 let status = bb.get('status', tick.tree.id, this.id);
                 if (status !== RUNNING) {
