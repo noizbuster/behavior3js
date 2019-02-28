@@ -1,5 +1,5 @@
 const {createUUID} = require('../b3.functions');
-const {RUNNING} = require('../constants');
+const {RUNNING, ERROR} = require('../constants');
 
 /**
  * The BaseNode class is used as super class to all nodes in BehaviorJS. It
@@ -22,7 +22,6 @@ const {RUNNING} = require('../constants');
  * @module b3
  * @class BaseNode
  **/
-
 module.exports = class BaseNode {
 
     /**
@@ -104,39 +103,44 @@ module.exports = class BaseNode {
      * different of `RUNNING`.
      *
      * @method _execute
-     * @param {Tick} tick A tick instance.
+     * @param {b3.Tick} tick A tick instance.
      * @return {Constant} The tick state.
      * @protected
      **/
     _execute(tick) {
-        // ENTER
-        this._enter(tick);
+        try {
+            // ENTER
+            this._enter(tick);
 
-        // OPEN
-        if (!tick.blackboard.get('isOpen', tick.tree.id, this.id)) {
-            this._open(tick);
+            // OPEN
+            if (!tick.blackboard.get('isOpen', tick.tree.id, this.id)) {
+                this._open(tick);
+            }
+
+            // TICK
+            const status = this._tick(tick);
+            tick.blackboard.set('lastStatus', status, tick.tree.id, this.id);
+
+            // CLOSE
+            if (status !== RUNNING) {
+                this._close(tick);
+                tick.blackboard.set('status', null, tick.tree.id, this.id);
+            }
+
+            // EXIT
+            this._exit(tick);
+
+            return status;
+        } catch (e){
+            console.error('failed to execute tick', e);
+            return ERROR;
         }
-
-        // TICK
-        const status = this._tick(tick);
-        tick.blackboard.set('lastStatus', status, tick.tree.id, this.id);
-
-        // CLOSE
-        if (status !== RUNNING) {
-            this._close(tick);
-            tick.blackboard.set('status', null, tick.tree.id, this.id);
-        }
-
-        // EXIT
-        this._exit(tick);
-
-        return status;
     }
 
     /**
      * Wrapper for enter method.
      * @method _enter
-     * @param {Tick} tick A tick instance.
+     * @param {b3.Tick} tick A tick instance.
      * @protected
      **/
     _enter(tick) {
@@ -147,7 +151,7 @@ module.exports = class BaseNode {
     /**
      * Wrapper for open method.
      * @method _open
-     * @param {Tick} tick A tick instance.
+     * @param {b3.Tick} tick A tick instance.
      * @protected
      **/
     _open(tick) {
@@ -160,7 +164,7 @@ module.exports = class BaseNode {
     /**
      * Wrapper for tick method.
      * @method _tick
-     * @param {Tick} tick A tick instance.
+     * @param {b3.Tick} tick A tick instance.
      * @return {Constant} A state constant.
      * @protected
      **/
@@ -181,7 +185,7 @@ module.exports = class BaseNode {
     /**
      * Wrapper for close method.
      * @method _close
-     * @param {Tick} tick A tick instance.
+     * @param {b3.Tick} tick A tick instance.
      * @protected
      **/
     _close(tick) {
@@ -193,7 +197,7 @@ module.exports = class BaseNode {
     /**
      * Wrapper for exit method.
      * @method _exit
-     * @param {Tick} tick A tick instance.
+     * @param {b3.Tick} tick A tick instance.
      * @protected
      **/
     _exit(tick) {
@@ -206,7 +210,7 @@ module.exports = class BaseNode {
      * asked to execute, before the tick itself.
      *
      * @method enter
-     * @param {Tick} tick A tick instance.
+     * @param {b3.Tick} tick A tick instance.
      **/
     enter(tick) {
     }
@@ -218,7 +222,7 @@ module.exports = class BaseNode {
      * Note: a node will be closed if it returned `RUNNING` in the tick.
      *
      * @method open
-     * @param {Tick} tick A tick instance.
+     * @param {b3.Tick} tick A tick instance.
      **/
     open(tick) {
     }
@@ -229,7 +233,7 @@ module.exports = class BaseNode {
      * every time a node is asked to execute.
      *
      * @method tick
-     * @param {Tick} tick A tick instance.
+     * @param {b3.Tick} tick A tick instance.
      **/
     tick(tick) {
     }
@@ -240,7 +244,7 @@ module.exports = class BaseNode {
      * `RUNNING`.
      *
      * @method close
-     * @param {Tick} tick A tick instance.
+     * @param {b3.Tick} tick A tick instance.
      **/
     close(tick) {
     }
@@ -250,7 +254,7 @@ module.exports = class BaseNode {
      * execution.
      *
      * @method exit
-     * @param {Tick} tick A tick instance.
+     * @param {b3.Tick} tick A tick instance.
      **/
     exit(tick) {
     }
