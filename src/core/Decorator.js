@@ -49,7 +49,7 @@ module.exports = class Decorator extends BaseNode {
      * @param {String} options.name Node name. Default to `Decorator`.
      * @param {String} options.title
      * @param {Object} options.properties
-     * @memberof Decorator
+     * @memberOf Decorator
      */
     constructor({child = null, name = 'Decorator', title, properties} = {}) {
         super({

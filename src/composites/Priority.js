@@ -17,7 +17,7 @@ module.exports = class Priority extends Composite {
      * Creates an instance of Priority.
      * @param {Object} params
      * @param {Array} params.children
-     * @memberof Priority
+     * @memberOf Priority
      */
     constructor({children = [], title} = {}) {
         super({

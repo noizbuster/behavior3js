@@ -12,7 +12,7 @@ module.exports = class Runner extends Action {
 
     /**
      * Creates an instance of Runner.
-     * @memberof Runner
+     * @memberOf Runner
      */
     constructor() {
         super({name: 'Runner'});

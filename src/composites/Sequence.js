@@ -1,5 +1,5 @@
 const Composite = require('../core/Composite');
-const {SUCCESS, RUNNING} = require('../constants');
+const {SUCCESS} = require('../constants');
 
 /**
  * The Sequence node ticks its children sequentially until one of them
@@ -17,7 +17,7 @@ module.exports = class Sequence extends Composite {
      * Creates an instance of Sequence.
      * @param {Object} params
      * @param {Array} params.children
-     * @memberof Sequence
+     * @memberOf Sequence
      */
     constructor({children = [], title} = {}) {
         super({

@@ -17,7 +17,7 @@ module.exports = class Condition extends BaseNode {
      * @param {Object} options.name Node name. Default to `Condition`.
      * @param {String} options.title
      * @param {Object} options.properties
-     * @memberof Condition
+     * @memberOf Condition
      */
     constructor({name = 'Condition', title, properties} = {}) {
         super({

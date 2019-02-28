@@ -14,6 +14,7 @@
  *
  * @module b3
  * @class Tick
+ * @memberOf b3
  **/
 
 module.exports = class Tick {
