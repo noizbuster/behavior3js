@@ -19,10 +19,8 @@ const {RUNNING} = require('../constants');
  * their documentation to know more. These callbacks are called inside the
  * `_execute` method, which is called in the tree traversal.
  *
- * @module b3
  * @class BaseNode
  **/
-
 module.exports = class BaseNode {
 
     /**

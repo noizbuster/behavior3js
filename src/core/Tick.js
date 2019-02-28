@@ -12,7 +12,6 @@
  * This class also makes a bridge between nodes and the debug, passing the
  * node state to the debug if the last is provided.
  *
- * @module b3
  * @class Tick
  **/
 
@@ -28,7 +27,7 @@ module.exports = class Tick {
 
         /**
          * The tree reference.
-         * @property {b3.BehaviorTree} tree
+         * @property {BehaviorTree} tree
          * @readOnly
          **/
         this.tree = null;
@@ -49,7 +48,7 @@ module.exports = class Tick {
 
         /**
          * The blackboard reference.
-         * @property {b3.Blackboard} blackboard
+         * @property {Blackboard} blackboard
          * @readOnly
          **/
         this.blackboard = null;

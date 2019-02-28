@@ -23,7 +23,7 @@ module.exports = class MaxTime extends Decorator {
      * @param {Object} params Object with parameters.
      * @param {Number} params.maxTime Maximum time a child can execute.
      * @param {BaseNode} params.child The child node.
-     * @memberof MaxTime
+     * @memberOf MaxTime
      */
     constructor({maxTime, child = null} = {}) {
         super({

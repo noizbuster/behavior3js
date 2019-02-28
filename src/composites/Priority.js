@@ -6,7 +6,6 @@ const {FAILURE} = require('../constants');
  * `SUCCESS`, `RUNNING` or `ERROR`. If all children return the failure state,
  * the priority also returns `FAILURE`.
  *
- * @module b3
  * @class Priority
  * @extends Composite
  **/
@@ -17,7 +16,7 @@ module.exports = class Priority extends Composite {
      * Creates an instance of Priority.
      * @param {Object} params
      * @param {Array} params.children
-     * @memberof Priority
+     * @memberOf Priority
      */
     constructor({children = [], title} = {}) {
         super({

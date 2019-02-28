@@ -12,7 +12,7 @@ module.exports = class Failer extends Action {
 
     /**
      * Creates an instance of Failer.
-     * @memberof Failer
+     * @memberOf Failer
      */
     constructor() {
         super({name: 'Failer'});

@@ -28,7 +28,7 @@ module.exports = class Action extends BaseNode {
      * @param {String} [options.name='Action'] Node name.
      * @param {String} [options.title]
      * @param {Object} [options.properties]
-     * @memberof Action
+     * @memberOf Action
      */
     constructor({name, title, tick, properties} = {}) {
         super({

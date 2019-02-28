@@ -7,7 +7,6 @@ const {SUCCESS, RUNNING} = require('../constants');
  * MemPriority call the child recorded directly, without calling previous
  * children again.
  *
- * @module b3
  * @class MemSequence
  * @extends Composite
  **/
@@ -18,7 +17,7 @@ module.exports = class MemSequence extends Composite {
      * Creates an instance of MemSequence.
      * @param {Object} params
      * @param {Array} params.children
-     * @memberof MemSequence
+     * @memberOf MemSequence
      */
     constructor({children = [], title} = {}) {
         super({
@@ -31,7 +30,7 @@ module.exports = class MemSequence extends Composite {
     /**
      * Open method.
      * @method open
-     * @param {b3.Tick} tick A tick instance.
+     * @param {Tick} tick A tick instance.
      **/
     open(tick) {
         tick.blackboard.set('runningChild', 0, tick.tree.id, this.id);
@@ -40,7 +39,7 @@ module.exports = class MemSequence extends Composite {
     /**
      * Tick method.
      * @method tick
-     * @param {b3.Tick} tick A tick instance.
+     * @param {Tick} tick A tick instance.
      * @return {Constant} A state constant.
      **/
     tick(tick) {

@@ -16,7 +16,7 @@ module.exports = class Inverter extends Decorator {
      * Creates an instance of Inverter.
      * @param {Object} params
      * @param {BaseNode} params.child The child node.
-     * @memberof Inverter
+     * @memberOf Inverter
      */
     constructor({child = null} = {}) {
         super({

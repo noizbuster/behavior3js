@@ -1,5 +1,5 @@
 const Composite = require('../core/Composite');
-const {FAILURE, RUNNING} = require('../constants');
+const {FAILURE, RUNNING, SUCCESS} = require('../constants');
 
 /**
  * MemPriority is similar to Priority node, but when a child returns a
@@ -18,7 +18,7 @@ module.exports = class MemPriority extends Composite {
      * Creates an instance of MemPriority.
      * @param {Object} params
      * @param {Array} params.children
-     * @memberof MemPriority
+     * @memberOf MemPriority
      */
     constructor({children = [], title} = {}) {
         super({
@@ -31,7 +31,7 @@ module.exports = class MemPriority extends Composite {
     /**
      * Open method.
      * @method open
-     * @param {b3.Tick} tick A tick instance.
+     * @param {Tick} tick A tick instance.
      **/
     open(tick) {
         tick.blackboard.set('runningChild', 0, tick.tree.id, this.id);
@@ -40,7 +40,7 @@ module.exports = class MemPriority extends Composite {
     /**
      * Tick method.
      * @method tick
-     * @param {b3.Tick} tick A tick instance.
+     * @param {Tick} tick A tick instance.
      * @return {Constant} A state constant.
      **/
     tick(tick) {

@@ -50,7 +50,7 @@ module.exports = class Composite extends BaseNode {
      * @param {String} options.name Node name. Default to `Composite`.
      * @param {String} options.title
      * @param {Object} options.properties
-     * @memberof Composite
+     * @memberOf Composite
      */
     constructor({children = [], name = 'Composite', title, properties} = {}) {
         super({

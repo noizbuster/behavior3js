@@ -22,7 +22,7 @@ module.exports = class RepeatUntilSuccess extends Decorator {
      * @param {Object} params Object with parameters.
      * @param {Number} params.maxLoop Maximum number of repetitions. Default to -1 (infinite).
      * @param {BaseNode} params.child The child node.
-     * @memberof RepeatUntilSuccess
+     * @memberOf RepeatUntilSuccess
      **/
     constructor({maxLoop = -1, child = null} = {}) {
         super({

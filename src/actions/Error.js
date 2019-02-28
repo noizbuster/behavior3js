@@ -12,7 +12,7 @@ module.exports = class Error extends Action {
 
     /**
      * Creates an instance of Error.
-     * @memberof Error
+     * @memberOf Error
      */
     constructor() {
         super({name: 'Error'});

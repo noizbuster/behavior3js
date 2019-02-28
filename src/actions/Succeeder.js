@@ -13,7 +13,7 @@ module.exports = class Succeeder extends Action {
 
     /**
      * Creates an instance of Succeeder.
-     * @memberof Succeeder
+     * @memberOf Succeeder
      */
     constructor() {
         super({name: 'Succeeder'});

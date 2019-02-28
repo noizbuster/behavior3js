@@ -24,7 +24,7 @@ module.exports = class Limiter extends Decorator {
      * @param {Object} params
      * @param {Number} params.maxLoop Maximum number of repetitions.
      * @param {BaseNode} params.child The child node.
-     * @memberof Limiter
+     * @memberOf Limiter
      */
     constructor({child = null, maxLoop} = {}) {
         super({
