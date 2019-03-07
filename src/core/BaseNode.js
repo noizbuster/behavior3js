@@ -28,7 +28,7 @@ module.exports = class BaseNode {
      * @method initialize
      * @constructor
      **/
-    constructor({category, name, title, description, tick, properties} = {}) {
+    constructor({category, name, title, description, properties} = {}) {
 
         this.id = createUUID();
 
@@ -89,9 +89,6 @@ module.exports = class BaseNode {
          * @readonly
          **/
         this.parameters = {};
-        if (tick) {
-            this.tick = tick;
-        }
     }
 
     /**
@@ -122,7 +119,6 @@ module.exports = class BaseNode {
         // CLOSE
         if (status !== RUNNING) {
             this._close(tick);
-            tick.blackboard.set('status', null, tick.tree.id, this.id);
         }
 
         // EXIT

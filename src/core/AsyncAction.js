@@ -32,7 +32,7 @@ class AsyncAction extends BaseNode {
     /**
      * @constructor
      */
-    constructor({name = 'AsyncAction', title, properties, tick, onResolve, onReject} = {}) {
+    constructor({name = 'AsyncAction', title, properties, tick} = {}) {
         /**
          * @member {string} name
          */
@@ -40,12 +40,10 @@ class AsyncAction extends BaseNode {
             category: ACTION,
             name: name || 'AsyncAction',
             title: title,
-            tick: tick,
             properties: _.assign(properties, {timeout: -1}),
         });
 
-        this.onResolve = onResolve;
-        this.onReject = onReject;
+        this.tick = tick;
     }
 
     /**
@@ -84,62 +82,72 @@ class AsyncAction extends BaseNode {
      **/
     _tick(tick) {
         tick._tickNode(this);
-        const result = this.asyncTick(tick);
-        if (tick.debug) {
-            console.log(`tick result:\t${this.title}: ` + result);
+        try {
+            const result = this.asyncTick(tick);
+            if (tick.debug) {
+                console.log(`tick result:\t${this.title}: ` + result);
+            }
+            return result;
+        } catch (e) {
+            console.error(`failed to running AsyncAction: ${this.title}`, e);
+            return FAILURE;
         }
-        return result;
     }
 
     asyncTick(tick) {
         const bb = tick.blackboard;
         const l = tick.target.logger;
 
-        if (this.isCalled) {
+        if (bb.get('isCalled', tick.tree.id, this.id)) {
             return bb.get('status', tick.tree.id, this.id);
         } else {
-            this.isCalled = true;
+            bb.set('isCalled', true, tick.tree.id, this.id);
         }
 
         this.updateTimeout();
-        this.tick(tick).then(
-            (result) => {
+        this.tick(tick)
+            .then((result) => {
                 let status = bb.get('status', tick.tree.id, this.id);
+
                 if (status !== RUNNING) {
-                    // l.w('run() resolved after timeout, the result gonna ignored');
+                    console.log('run() resolved after timeout, the result gonna ignored');
                     status = FAILURE;
                     return;
-                }
-                if (typeof (this.onResolve) === 'function') {
-                    this.onResolve(tick, result)
                 }
                 if (result === SUCCESS || result === FAILURE) {
                     status = result;
                 } else {
-                    // l.w('run() pf AsyncAction should return SUCCESS or FAILURE only');
+                    l.w('tick() of AsyncAction should return SUCCESS or FAILURE only');
                     status = ERROR;
                 }
-                l.i(`AsyncAction ${this.name} ${this.title} has resolved with result` + result);
+
+                if (result !== SUCCESS) {
+                    l.w(`AsyncAction ${this.name} ${this.title} has resolved with result ` + result);
+                } else {
+                    l.i(`AsyncAction ${this.name} ${this.title} has resolved with result ` + result);
+                }
                 bb.set('status', status, tick.tree.id, this.id);
-            }).catch(
-            (err) => {
+            })
+            .catch((err) => {
                 let status = bb.get('status', tick.tree.id, this.id);
+
                 if (status !== RUNNING) {
-                    // l.w('run() resolved after timeout, the result gonna ignored');
+                    l.w('run() resolved after timeout, the result gonna ignored');
                     return;
                 }
-                if (typeof (this.onReject) === 'function') {
-                    this.onReject(tick, err)
-                }
                 status = FAILURE;
-                // l.w(`Error on run() of ${this.name} ${this.title}`, {err: err, message: _.get(err, 'message')});
+                l.e(`Error on run() of ${this.name} ${this.title}`, {
+                    err: err,
+                    message: _.get(err, 'message')
+                });
+
                 bb.set('status', status, tick.tree.id, this.id);
             });
         return bb.get('status', tick.tree.id, this.id);
     }
 
     close(tick) {
-        this.isCalled = false;
+        tick.blackboard.set('isCalled', false, tick.tree.id, this.id);
     }
 }
 

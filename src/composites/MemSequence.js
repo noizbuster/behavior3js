@@ -48,14 +48,12 @@ module.exports = class MemSequence extends Composite {
             const status = this.children[i]._execute(tick);
 
             if (status !== SUCCESS) {
-                // if (status === RUNNING) {
+                if (status === RUNNING) {
                     tick.blackboard.set('runningChild', i, tick.tree.id, this.id);
-                // }
+                }
                 return status;
             }
         }
-
-        tick.blackboard.set('runningChild', 0, tick.tree.id, this.id);
         return SUCCESS;
     }
 };

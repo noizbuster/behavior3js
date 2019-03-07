@@ -35,9 +35,9 @@ module.exports = class Action extends BaseNode {
             category: ACTION,
             name: name || 'action',
             title,
-            tick,
             properties
         });
+        this.tick = tick;
     }
 
 };

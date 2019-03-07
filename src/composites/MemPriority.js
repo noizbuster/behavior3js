@@ -1,5 +1,5 @@
 const Composite = require('../core/Composite');
-const {FAILURE, RUNNING, SUCCESS} = require('../constants');
+const {FAILURE, RUNNING} = require('../constants');
 
 /**
  * MemPriority is similar to Priority node, but when a child returns a
@@ -7,7 +7,6 @@ const {FAILURE, RUNNING, SUCCESS} = require('../constants');
  * MemPriority calls the child recorded directly, without calling previous
  * children again.
  *
- * @module b3
  * @class MemPriority
  * @extends Composite
  **/
@@ -49,9 +48,9 @@ module.exports = class MemPriority extends Composite {
             const status = this.children[i]._execute(tick);
 
             if (status !== FAILURE) {
-                // if (status === RUNNING) {
+                if (status === RUNNING) {
                     tick.blackboard.set('runningChild', i, tick.tree.id, this.id);
-                // }
+                }
                 return status;
             }
         }

@@ -43,18 +43,4 @@ module.exports = class Priority extends Composite {
 
         return FAILURE;
     }
-
-    // tick(tick) {
-    //     let status;
-    //     do {
-    //         status = this.children[this.i]._execute(tick);
-    //         this.i++;
-    //     } while (status === SUCCESS || this.i === this.children.length);
-    //
-    //     if (status === SUCCESS) {
-    //         return status;
-    //     }
-    //
-    //     return FAILURE;
-    // }
 };
