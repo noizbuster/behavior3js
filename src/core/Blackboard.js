@@ -33,15 +33,12 @@
  * (it is accessed via `_treeMemory[id].nodeMemory`). Avoid to use these
  * variables manually, use `get` and `set` instead.
  *
- * @module b3
  * @class Blackboard
  **/
-
 module.exports = class Blackboard {
 
     /**
      * Initialization method.
-     * @method initialize
      * @constructor
      **/
     constructor() {
@@ -149,8 +146,7 @@ module.exports = class Blackboard {
      *
      * @method get
      * @param {String} key The key to be retrieved.
-     * @param {String} [treeScope] The tree id if accessing the tree or node
-     *                           memory.
+     * @param {String} [treeScope] The tree id if accessing the tree or node memory.
      * @param {String} [nodeScope] The node id if accessing the node memory.
      * @return {Object} The value stored or undefined.
      **/

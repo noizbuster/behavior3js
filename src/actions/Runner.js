@@ -4,7 +4,6 @@ const {RUNNING} = require('../constants');
 /**
  * This action node returns RUNNING always.
  *
- * @module b3
  * @class Runner
  * @extends Action
  **/
@@ -21,7 +20,7 @@ module.exports = class Runner extends Action {
     /**
      * Tick method.
      * @method tick
-     * @param {b3.Tick} tick A tick instance.
+     * @param {Tick} tick A tick instance.
      * @return {Constant} Always return `RUNNING`.
      **/
     tick(tick) {

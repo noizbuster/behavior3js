@@ -132,9 +132,9 @@ module.exports = class BehaviorTree {
      *     //json
      *     ...
      *     'node1': {
-   *       'name': MyCustomNode,
-   *       'title': ...
-   *     }
+     *       'name': MyCustomNode,
+     *       'title': ...
+     *     }
      *     ...
      *
      *     //code
@@ -153,12 +153,12 @@ module.exports = class BehaviorTree {
         this.description = data.description || this.description;
         this.properties = data.properties || this.properties;
 
-        var nodes = {};
-        var id, spec, node;
+        const nodes = {};
+        let spec, node;
         // Create the node list (without connection between them)
-        for (id in data.nodes) {
+        for (let id in data.nodes) {
             spec = data.nodes[id];
-            var Cls;
+            let Cls;
 
             if (spec.name in names) {
                 // Look for the name in custom nodes
@@ -186,13 +186,13 @@ module.exports = class BehaviorTree {
         }
 
         // Connect the nodes
-        for (id in data.nodes) {
+        for (let id in data.nodes) {
             spec = data.nodes[id];
             node = nodes[id];
 
             if (node.category === COMPOSITE && spec.children) {
-                for (var i = 0; i < spec.children.length; i++) {
-                    var cid = spec.children[i];
+                for (let i = 0; i < spec.children.length; i++) {
+                    const cid = spec.children[i];
                     node.children.push(nodes[cid]);
                 }
             } else if (node.category === DECORATOR && spec.child) {
@@ -213,8 +213,8 @@ module.exports = class BehaviorTree {
      * @return {Object} A data object representing this tree.
      **/
     dump() {
-        var data = {};
-        var customNames = [];
+        const data = {};
+        const customNames = [];
 
         data.title = this.title;
         data.description = this.description;
@@ -225,11 +225,11 @@ module.exports = class BehaviorTree {
 
         if (!this.root) return data;
 
-        var stack = [this.root];
+        const stack = [this.root];
         while (stack.length > 0) {
-            var node = stack.pop();
+            const node = stack.pop();
 
-            var spec = {};
+            const spec = {};
             spec.id = node.id;
             spec.name = node.name;
             spec.title = node.title;
@@ -238,10 +238,10 @@ module.exports = class BehaviorTree {
             spec.parameters = node.parameters;
 
             // verify custom node
-            var proto = (node.constructor && node.constructor.prototype);
-            var nodeName = (proto && proto.name) || node.name;
+            const proto = (node.constructor && node.constructor.prototype);
+            const nodeName = (proto && proto.name) || node.name;
             if (!Decorators[nodeName] && !Composites[nodeName] && !Actions[nodeName] && customNames.indexOf(nodeName) < 0) {
-                var subdata = {};
+                const subdata = {};
                 subdata.name = nodeName;
                 subdata.title = (proto && proto.title) || node.title;
                 subdata.category = node.category;
@@ -252,8 +252,8 @@ module.exports = class BehaviorTree {
 
             // store children/child
             if (node.category === COMPOSITE && node.children) {
-                var children = [];
-                for (var i = node.children.length - 1; i >= 0; i--) {
+                const children = [];
+                for (let i = node.children.length - 1; i >= 0; i--) {
                     children.push(node.children[i].id);
                     stack.push(node.children[i]);
                 }
@@ -287,8 +287,8 @@ module.exports = class BehaviorTree {
      * automatically.
      *
      * @method tick
-     * @param {Object} target A target object.
-     * @param {Blackboard} blackboard An instance of blackboard object.
+     * @param {Object}      target      - A target object.
+     * @param {Blackboard}  blackboard  - An instance of blackboard object.
      * @return {Constant} The tick signal state.
      **/
     tick(target, blackboard) {
@@ -298,33 +298,33 @@ module.exports = class BehaviorTree {
         }
 
         /* CREATE A TICK OBJECT */
-        var tick = new Tick();
+        const tick = new Tick();
         tick.debug = this.debug;
         tick.target = target;
         tick.blackboard = blackboard;
         tick.tree = this;
 
         /* TICK NODE */
-        var state = this.root._execute(tick);
+        const state = this.root._execute(tick);
 
         /* CLOSE NODES FROM LAST TICK, IF NEEDED */
-        var lastOpenNodes = blackboard.get('openNodes', this.id);
-        var currOpenNodes = tick._openNodes.slice(0);
-
-        // does not close if it is still open in this tick
-        var start = 0;
-        var i;
-        for (i = 0; i < Math.min(lastOpenNodes.length, currOpenNodes.length); i++) {
-            start = i + 1;
-            if (lastOpenNodes[i] !== currOpenNodes[i]) {
-                break;
-            }
-        }
-
-        // close the nodes
-        for (i = lastOpenNodes.length - 1; i >= start; i--) {
-            lastOpenNodes[i]._close(tick);
-        }
+        // var lastOpenNodes = blackboard.get('openNodes', this.id);
+        const currOpenNodes = tick._openNodes.slice(0);
+        //
+        // // does not close if it is still open in this tick
+        // var start = 0;
+        // var i;
+        // for (i = 0; i < Math.min(lastOpenNodes.length, currOpenNodes.length); i++) {
+        //     start = i + 1;
+        //     if (lastOpenNodes[i] !== currOpenNodes[i]) {
+        //         break;
+        //     }
+        // }
+        //
+        // // close the nodes
+        // for (i = lastOpenNodes.length - 1; i >= start; i--) {
+        //     lastOpenNodes[i]._close(tick);
+        // }
 
         /* POPULATE BLACKBOARD */
         blackboard.set('openNodes', currOpenNodes, this.id);
